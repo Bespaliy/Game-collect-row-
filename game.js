@@ -1,16 +1,16 @@
 'use strict';
 const field = document.querySelector('.field');
 const arrOfField = [];
-const gamers = ['gamer1', 'gamer2', 'gamer3'];
-const vertically = 25;
-const horizontally = 45;
-let numberOfGamer = 0;
+const gamers = ['gamer1', 'gamer2'];
+const verticalSize = 25;
+const horizontalSize = 45;
+let countGamer = 0;
 
-const makeTable = (field, vertically, horizontally, arrOfField) => {
-  for (let i = 0; i < vertically; i++) {
+const makeTable = (field, verticalSize, horizontalSize, arrOfField) => {
+  for (let i = 0; i < verticalSize; i++) {
     arrOfField[i] = [];
     const row = document.createElement('tr');
-    for (let j = 0; j < horizontally; j++) {
+    for (let j = 0; j < horizontalSize; j++) {
       const cell = document.createElement('td');
       arrOfField[i][j] = cell;
       row.appendChild(cell);
@@ -107,10 +107,10 @@ function clickOnCell() {
   if (this.classList.item(0)) {
     return;
   }
-  this.classList.add(gamers[numberOfGamer]);
-  numberOfGamer++;
-  if (numberOfGamer === gamers.length) {
-    numberOfGamer = 0;
+  this.classList.add(gamers[countGamer]);
+  countGamer++;
+  if (countGamer === gamers.length) {
+    countGamer = 0;
   }
-  endOfGame(mainArr, gamers[numberOfGamer]);
+  endOfGame(mainArr, gamers[countGamer]);
 }
