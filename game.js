@@ -1,14 +1,20 @@
 'use strict';
+const addEmptyRow = (fields, i) => fields[i] = [];
+
+const fillRow = (i, horizontalSize, arrOfField, row) => {
+  for (let j = 0; j < horizontalSize; j++) {
+    const cell = document.createElement('td');
+    arrOfField[i][j] = cell;
+    row.appendChild(cell);
+    cell.addEventListener('click', () => { clickOnCell(cell); });
+  }
+};
+
 const makeTable = (field, verticalSize, horizontalSize, arrOfField) => {
   for (let i = 0; i < verticalSize; i++) {
-    arrOfField[i] = [];
+    addEmptyRow(arrOfField, i);
     const row = document.createElement('tr');
-    for (let j = 0; j < horizontalSize; j++) {
-      const cell = document.createElement('td');
-      arrOfField[i][j] = cell;
-      row.appendChild(cell);
-      cell.addEventListener('click', clickOnCell);
-    }
+    fillRow(i, horizontalSize, arrOfField, row);
     field.appendChild(row);
   }
   return arrOfField;
@@ -16,14 +22,13 @@ const makeTable = (field, verticalSize, horizontalSize, arrOfField) => {
 
 const whoIsWinner = (arr, gamer) => {
   for (let i = 0; i < arr.length; i++) {
-    for (let j = 4; j < arr[i].length; j++) {
-      if (arr[i][j - 4].classList.contains(gamer) &&
-                  arr[i][j - 3].classList.contains(gamer) &&
-                  arr[i][j - 2].classList.contains(gamer) &&
-                  arr[i][j - 1].classList.contains(gamer) &&
-                  arr[i][j].classList.contains(gamer)) {
+    for (let j = 2; j < arr[i].length; j++) {
+      if (arr[i][j - 2].classList.contains(gamer) &&
+          arr[i][j - 1].classList.contains(gamer) &&
+          arr[i][j].classList.contains(gamer)) {
         return true;
       }
+
     }
   }
   return false;
@@ -41,7 +46,7 @@ const blockGame = arr => {
 
 const endOfGame = (arr, gamer) => {
   if (whoIsWinner(arr, gamer)) {
-    alert(`${gamer}`);
+    alert(`Winner is ${gamer}`);
     return blockGame(arr);
   }
 };
@@ -89,6 +94,7 @@ const getSecondDiagonal = arr => {
   return result;
 };
 
+
 const field = document.querySelector('.field');
 const arrOfField = [];
 const gamers = ['gamer1', 'gamer2'];
@@ -104,11 +110,11 @@ const secondDiagonal = getSecondDiagonal(arrOfField);
 const mainArr = arrOfField.concat(colums, firstDiagonal, secondDiagonal);
 
 
-function clickOnCell() {
-  if (this.classList.item(0)) {
-    return;
+function clickOnCell(cell) {
+  if (cell.classList.item(0)) {
+    return undefined;
   }
-  this.classList.add(gamers[countGamer]);
+  cell.classList.add(gamers[countGamer]);
   countGamer++;
   if (countGamer === gamers.length) {
     countGamer = 0;
