@@ -1,11 +1,4 @@
 'use strict';
-const field = document.querySelector('.field');
-const arrOfField = [];
-const gamers = ['gamer1', 'gamer2'];
-const verticalSize = 25;
-const horizontalSize = 45;
-let countGamer = 0;
-
 const makeTable = (field, verticalSize, horizontalSize, arrOfField) => {
   for (let i = 0; i < verticalSize; i++) {
     arrOfField[i] = [];
@@ -95,7 +88,15 @@ const getSecondDiagonal = arr => {
   }
   return result;
 };
-makeTable(field, vertically, horizontally, arrOfField);
+
+const field = document.querySelector('.field');
+const arrOfField = [];
+const gamers = ['gamer1', 'gamer2'];
+const verticalSize = 25;
+const horizontalSize = 45;
+let countGamer = 0;
+
+makeTable(field, verticalSize, horizontalSize, arrOfField);
 
 const colums = getTransColone(arrOfField);
 const firstDiagonal = getFirstDiagonal(arrOfField);
